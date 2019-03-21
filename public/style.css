@@ -1,4 +1,29 @@
+.chat-window {
+    height: 100vh;
+    width: 100vh;
+    background-color: salmon;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.add-message-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+message-input {
+    flex-grow: 10;
+}
+
 #increment {
     background-color: red;
     color: white;
+}
+
+ul,li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
