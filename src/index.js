@@ -26,14 +26,21 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
     console.log("A user connected!");
 
+    socket.emit('message', 'Welcome!');
+    socket.broadcast.emit('message', 'A new user has joined!');
+
     // Disconnect Functionality
     socket.on('disconnect', () => {
-        console.log("A user disconnected.")
+        io.emit('message', "A user has left the chat!");
     });
 
     socket.on('sendMessage', (message) => {
         io.emit('message', message);
     });
+
+    socket.on('sendLocation', (coords) => {
+        io.emit('message', `Location: ${coords.latitude}, ${coords.longitude}`);
+    })
 });
 
 server.listen(port, () => {

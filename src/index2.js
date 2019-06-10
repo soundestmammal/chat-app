@@ -53,5 +53,6 @@ In the script tag, src="/socket.io/socket.io.js"
 Create our own js file in the public directory and load it below ^^^
 Therefore, my own js file will have access to stuff from socket.io
 
-7.
+7. What does socket.broadcast.emit do?
+Emit the event to all connections except the user that triggers the event.
 */
