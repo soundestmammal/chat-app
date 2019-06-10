@@ -46,4 +46,4 @@ server.listen(port, () => {
     console.log(`Server is up on port ${port}`);
 });
 
-// I need to be more structured. What is the plan? Think 1. 2. 3. 
+
