@@ -34,12 +34,12 @@ io.on('connection', (socket) => {
         io.emit('chat message', message);
     });
 
-    const stream = T.stream('statuses/filter', { track: 'waymo, gm, cruise automation, nuro, nuroai' });
-    stream.on('tweet', function (tweet) {
-        var { create_at, text, user } = tweet;
-        console.log(tweet);
-        io.emit('chat message', create_at, text, user);
-    });
+    // const stream = T.stream('statuses/filter', { track: 'waymo, gm, cruise automation, nuro, nuroai' });
+    // stream.on('tweet', function (tweet) {
+    //     var { create_at, text, user } = tweet;
+    //     console.log(tweet);
+    //     io.emit('chat message', create_at, text, user);
+    // });
 });
 
 server.listen(port, () => {
@@ -47,21 +47,3 @@ server.listen(port, () => {
 });
 
 // I need to be more structured. What is the plan? Think 1. 2. 3. 
-
-/* 
-The server needs to handle:
-
-1) When a user connects/disconnects from the server we want to log that.
-2) When a user sends a message to the server ->
-    Listen for the event
-    io.emit the event to all connections
-
-
-
-
-
-Connection
-    Disconnection
-    chat message
-
-*/

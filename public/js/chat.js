@@ -16,33 +16,34 @@ document.querySelector('#message-form').addEventListener('submit', (e) => {
     return false;
 });
 
-// I want to create a resusable dom element that I am going to inject the information that I need.
-
-
-
-var render = function(template, node) {
-    // Put something here
+var tweetInfo = {
+    name: "Robert Checco",
+    date: new Date(),
+    age: 23
 }
 
-
-
-
-
-const twitterTemplate = {
-    constructor() {
-        this.photo = photo,
-        this.text = text,
-        this.time = time
+var template = function (tweetInfo) {
+    const {name, date, age} = tweetInfo;
+    temp = (name, date, age) => {
+    return (`
+        <div class="twitterList">
+            <div>${name}</div>
+            <div>${date}</div>
+            <div>${age}</div>
+        </div>`);
     }
-<li>
-    <div class="twitterTemplate">
-        <div>Photo</div>
-        <div>Text</div>
-        <div>Time</div>
-    </div>
-</li>
+};
+
+var render = function(node, template) {
+    if (!node) return;
+    node.innerHTML = template;
 }
-// Everytime I get a chat message, I want to pass the information to this element and render it.
 
+render(document.querySelector('.chat-window'), content);
 
-
+// var template = `
+// <div class="twitterList">
+//     <div>${name}</div>
+//     <div>${date}</div>
+//     <div>${age}</div>
+// </div>`;
