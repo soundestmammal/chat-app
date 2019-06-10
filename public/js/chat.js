@@ -1,13 +1,22 @@
 const socket = io();
 
-socket.on('countUpdated', (count) => {
-    console.log('The count has been updated', count);
+socket.on('message', (message) => {
+    console.log(message);
 });
 
-document.querySelector('#increment').addEventListener('click', () => {
-    console.log('Clicked');
-    socket.emit('increment');
+document.querySelector('#message-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const message = document.querySelector('input').value
+
+    socket.emit('sendMessage', message);
 })
+
+socket.on('connection', () => {
+    console.log("Welcome!")
+});
+
+
 
 
 // socket.on('chat message', (text) => {
@@ -26,34 +35,16 @@ document.querySelector('#increment').addEventListener('click', () => {
 //     return false;
 // });
 
-// var tweetInfo = {
-//     name: "Robert Checco",
-//     date: new Date(),
-//     age: 23
-// }
 
-// var template = function (tweetInfo) {
-//     const {name, date, age} = tweetInfo;
-//     temp = (name, date, age) => {
-//     return (`
-//         <div class="twitterList">
-//             <div>${name}</div>
-//             <div>${date}</div>
-//             <div>${age}</div>
-//         </div>`);
-//     }
-// };
+/*
 
-// var render = function(node, template) {
-//     if (!node) return;
-//     node.innerHTML = template;
-// }
+socket.on('countUpdated', (count) => {
+    console.log('The count has been updated', count);
+});
 
-// render(document.querySelector('.chat-window'), content);
+document.querySelector('#increment').addEventListener('click', () => {
+    console.log('Clicked');
+    socket.emit('increment');
+})
 
-// var template = `
-// <div class="twitterList">
-//     <div>${name}</div>
-//     <div>${date}</div>
-//     <div>${age}</div>
-// </div>`;
+*/

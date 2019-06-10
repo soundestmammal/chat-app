@@ -15,7 +15,6 @@ let count = 0;
 io.on('connection', (socket) => {
     console.log("New WebSocket Connection");
 
-    // Set up a custom event
     socket.emit('countUpdated', count);
 
     socket.on('increment', () => {
@@ -28,8 +27,6 @@ app.use(express.static(publicDirectoryPath));
 server.listen(port, () => {
     console.log(`Server is up on port ${port}!`);
 })
-
-
 
 
 /*
