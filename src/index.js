@@ -2,7 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
-const Twit = require('twit');
+const Filter = require('bad-words');
 
 const app = express();
 const server = http.createServer(app);
@@ -34,12 +34,20 @@ io.on('connection', (socket) => {
         io.emit('message', "A user has left the chat!");
     });
 
-    socket.on('sendMessage', (message) => {
+    socket.on('sendMessage', (message, callback) => {
+        const filter = new Filter();
+
+        if(filter.isProfane(message)) {
+            return callback('Profanity is not allowed!')
+        }
+
         io.emit('message', message);
+        callback();
     });
 
-    socket.on('sendLocation', (coords) => {
+    socket.on('sendLocation', (coords, callback) => {
         io.emit('message', `https://google.com/maps?q=${coords.latitude},${coords.longitude}`);
+        callback();
     })
 });
 
