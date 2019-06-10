@@ -21,6 +21,10 @@ socket.on('message', (message) => {
     $messages.insertAdjacentHTML('beforeend', html);
 });
 
+socket.on('locationMessage', (location) => {
+    console.log(location);
+})
+
 $messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
