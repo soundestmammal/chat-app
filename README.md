@@ -54,5 +54,5 @@ Give an example
 
 ## Acknowledgments
 
-* This project was inspired from the Node Course by mead.io
-* Thanks to ______ for this awesome README.md template
+* This project was inspired by Andrew Mead. Thanks for teaching me so much about nodejs.
+* Thanks to [Billie Thompson](http://github.com/purplebooth) for this awesome README.md template
