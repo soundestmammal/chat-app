@@ -74,3 +74,11 @@ const getUser = (id) => {
 
 console.log(getUser(42));
 
+const getUsersInRoom = room => {
+    room = room.trim().toLowerCase();
+    const members = users.filter(user => {
+        return user.room === room;
+    });
+    return members;
+}
+console.log(getUsersInRoom("NYC"));
