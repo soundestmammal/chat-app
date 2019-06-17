@@ -46,9 +46,31 @@ addUser({
     room: 'nyc'
 })
 
+addUser({
+    id: 62,
+    username: 'mike',
+    room: 'nyc'
+})
+
+addUser({
+    id: 42,
+    username: 'joe',
+    room: 'farmingdale'
+})
+
 console.log(users);
 
-const removedUser = removeUser(22);
+const getUser = (id) => {
+    const index = users.findIndex(user => user.id === id);
 
-console.log(removedUser);
-console.log(users);
+    if(index !== -1) {
+        return users[index];
+    } else {
+        return {
+            error: "Could not find that user"
+        }
+    }
+}
+
+console.log(getUser(42));
+
