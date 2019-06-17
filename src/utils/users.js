@@ -68,9 +68,6 @@ console.log(getUser(42));
 
 const getUsersInRoom = room => {
     room = room.trim().toLowerCase();
-    const members = users.filter(user => {
-        return user.room === room;
-    });
-    return members;
+    return users.filter(user => user.room === room);
 }
 console.log(getUsersInRoom("NYC"));
