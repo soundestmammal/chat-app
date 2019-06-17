@@ -29,8 +29,14 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
     console.log("A user connected!");
 
-    socket.emit('message', generateMessage('Welcome!'));
-    socket.broadcast.emit('message', generateMessage('A new user has joined!'));
+    socket.on('join', ({ username, room }) => {
+        socket.join(room)
+
+        socket.emit('message', generateMessage('Welcome!'));
+        socket.broadcast.to(room).emit('message', generateMessage(`${username} has joined!`));
+        // socket.emit, io.emit, socket.broadcast.emit
+        // io.to.emit (emit event to everyone in a specific room), socket.broadcast.to.emit(send to everyone except the origin client)
+    })
 
     // Disconnect Functionality
     socket.on('disconnect', () => {
@@ -44,7 +50,7 @@ io.on('connection', (socket) => {
             return callback('Profanity is not allowed!')
         }
 
-        io.emit('message', generateMessage(message));
+        io.to('123').emit('message', generateMessage(message));
         callback();
     });
 
