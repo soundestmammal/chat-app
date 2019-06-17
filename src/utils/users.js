@@ -61,15 +61,7 @@ addUser({
 console.log(users);
 
 const getUser = (id) => {
-    const index = users.findIndex(user => user.id === id);
-
-    if(index !== -1) {
-        return users[index];
-    } else {
-        return {
-            error: "Could not find that user"
-        }
-    }
+    return users.find(user => user.id === id);
 }
 
 console.log(getUser(42));
