@@ -79,12 +79,33 @@ socket.on('connection', () => {
     console.log("Welcome!")
 });
 
+
+// If something does go wrong, we will be able to find out
+// It is important to let the client know there was a problem
 socket.emit('join', { username, room }, (error) => {
     if (error) {
         alert(error);
         location.href = '/';
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
