@@ -30,8 +30,11 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
     console.log("A user connected!");
 
-    socket.on('join', ({ username, room }, callback) => {
-        const { error, user } = addUser({ id: socket.id, username, room });
+    socket.on('join', ( options, callback) => {
+        // Try to use addUser. Add them to the array, by providing the options object
+        // Destructure this and store in two variables
+        const { error, user } = addUser({ id: socket.id, ...options});
+        // Use conditional logic to check if they was an error adding the user
         if (error) {
             return callback(error);
         }
@@ -39,13 +42,16 @@ io.on('connection', (socket) => {
         socket.join(user.room);
 
         socket.emit('message', generateMessage('Welcome!'));
-        socket.broadcast.to(room).emit('message', generateMessage(`${user.username} has joined!`));
+        socket.broadcast.to(user.room).emit('message', generateMessage(`${user.username} has joined!`));
 
+        // Call callback with no arguments, (no error)
         callback();
     })
 
     // Disconnect Functionality
     socket.on('disconnect', () => {
+
+        // Either return undefined or the user as an object
         const user = removeUser(socket.id);
 
         if (user) {
@@ -54,13 +60,14 @@ io.on('connection', (socket) => {
     });
 
     socket.on('sendMessage', (message, callback) => {
+        const user = getUser(socket.id);
         const filter = new Filter();
 
         if(filter.isProfane(message)) {
             return callback('Profanity is not allowed!')
         }
 
-        io.to('123').emit('message', generateMessage(message));
+        io.to(user.room).emit('message', generateMessage(message));
         callback();
     });
 
