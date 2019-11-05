@@ -1,13 +1,14 @@
+/* Load files that I will use */
+
 const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const Filter = require('bad-words');
-const { generateMessage,
-        generateLocationMessage
-        } = require('./utils/messages');
+const { generateMessage, generateLocationMessage } = require('./utils/messages');
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/users');
 
+/* Create an instance of an express application */
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -17,20 +18,15 @@ const publicDirectoryPath = path.join(__dirname, '../public');
 
 app.use(express.static(publicDirectoryPath));
 
-// const T = new Twit({
-//     consumer_key:         'JDkYuuyxW16aXOPpyiiqAIF2O',
-//     consumer_secret:      'MHePNqpCx0Kgp8HBSkjQ6oE1lmFRAtcV9bs603EKzH6veZczLW',
-//     access_token:         '61657873-ngpFtj8OB0Qf0fxe6I2DritCcF1YOce67BxVlCWzU',
-//     access_token_secret:  '9sdvGTcgxClappJLHY80GIPoV4gsHY6zhlcOvhy3cuPUZ',
-//     timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
-//     strictSSL:            true,     // optional - requires SSL certificates to be valid.
-// });
-
 // This is like the global scope for the web socket
+/* 
+What is the difference between io.on and socket.on?
+*/
 io.on('connection', (socket) => {
     console.log("A user connected!");
 
-    socket.on('join', ( options, callback) => {
+    // When a user JOIN a socket, I want to try and add the user.
+    socket.on('join', (options, callback) => {
         // Try to use addUser. Add them to the array, by providing the options object
         // Destructure this and store in two variables
         const { error, user } = addUser({ id: socket.id, ...options});
@@ -38,7 +34,9 @@ io.on('connection', (socket) => {
         if (error) {
             return callback(error);
         }
-
+        // If there was no error, then we are able to successfully add a user.
+        // In that case, we want to make sure we let them join the websocket
+        // They will connect to the name of the room that is on their user objects.
         socket.join(user.room);
 
         socket.emit('message', generateMessage("Admin", 'Welcome!'));
