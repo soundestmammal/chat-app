@@ -181,3 +181,27 @@ button:disabled {
     font-weight: 300;
     padding: 12px 24px 0 24px;
 }
+
+/* Join Page  */
+
+.ui-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation-container {
+    display: flex;
+    flex-direction: row;
+    background-color: green;
+    height: 500px;
+}
+
+.left-pane {
+    background-color: red;
+    flex-grow: 1;
+}
+
+.right-pane {
+    background-color: blue;
+    flex-grow: 1;
+}
