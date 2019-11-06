@@ -1,9 +1,11 @@
 import React from 'react';
+import Login from '../src/components/Login';
+import "../src/styles/App.css";
 
 function App() {
   return (
-    <div className="App">
-      <p>React Application</p>
+    <div className="container">
+      <Login />
     </div>
   );
 }
