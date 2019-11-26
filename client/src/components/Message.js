@@ -3,12 +3,12 @@ import "../styles/message.css";
 
 const Message = (props) => {
     return(
-        <div class="message">
+        <div className="message">
                 <p>
-                    <span class="message__name">Robert</span>
-                    <span class="message__meta">Created Now</span>
+                    <span className="message__name">{ props.user }</span>
+                    <span className="message__meta">{ props.createdAt }</span>
                 </p>
-                <p>This is the body of the message!!!</p>
+                <p>{props.text}</p>
         </div>
     );
 }
