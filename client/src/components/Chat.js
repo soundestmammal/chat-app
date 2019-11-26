@@ -8,7 +8,17 @@ class Chat extends Component {
         this.state = {
             messages: {},
             input: "",
+            value: ""
         }
+    }
+
+    handleChange = (e) => {
+        this.setState({value: e.target.value});
+    }
+
+    handleSubmit = (e) => {
+        alert(`A message was submitted:  ${this.state.value}`);
+        e.preventDefault();
     }
 
     render() {
@@ -22,8 +32,8 @@ class Chat extends Component {
                         <Message />
                     </div>
                     <div className="compose">
-                        <form id="message-form">
-                            <input name="message" placeholder="Message" required autocomplete="off"/>
+                        <form id="message-form" onSubmit={this.handleSubmit}>
+                            <input type="text" value={ this.state.value } onChange={this.handleChange} autocomplete="off"/>
                             <button>Send</button>
                         </form>
                     </div>
