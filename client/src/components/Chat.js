@@ -8,12 +8,42 @@ class Chat extends Component {
         this.state = {
             messages: {},
             input: "",
-            value: ""
+            value: "",
+            username: "Rob Che",
         }
+    }
+
+    generateMessageObject = () => {
+        return {
+            userName: this.state.userName,
+            text: this.state.value,
+            createdAt: new Date().getTime()
+        }
+    }
+
+    // generateMessageComponent = (messageObj) => {
+    //     return(
+    //         <Message
+    //             user={ messageObj.userName }
+    //             text={ messageObj.text }
+    //             createdAt={ messageObj.createdAt }
+    //         />
+    //     );
+    // }
+
+    generateMessageComponent = () => {
+        return (
+            <Message
+                user={ this.state.username }
+                text={ this.state.value }
+                createdAt={ new Date().getTime() }
+            />
+        );
     }
 
     handleChange = (e) => {
         this.setState({value: e.target.value});
+        console.log(this.state.value);
     }
 
     handleSubmit = (e) => {
@@ -29,11 +59,11 @@ class Chat extends Component {
                 </div>
                 <div className="chat__main">
                     <div id="messages" className="chat__messages">
-                        <Message />
+                        { this.generateMessageComponent() }
                     </div>
                     <div className="compose">
                         <form id="message-form" onSubmit={this.handleSubmit}>
-                            <input type="text" value={ this.state.value } onChange={this.handleChange} autocomplete="off"/>
+                            <input type="text" value={ this.state.value } onChange={this.handleChange} autoComplete="off"/>
                             <button>Send</button>
                         </form>
                     </div>
