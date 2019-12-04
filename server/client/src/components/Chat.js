@@ -15,6 +15,21 @@ class Chat extends Component {
         }
     }
 
+    componentWillMount() {
+        this.populateState();
+    }
+
+    // Create a method that will have all of the data for the chat
+
+    populateState = async () => {
+        const response = await fetch('/chat');
+        const body = await response.json();
+        if (response.status !== 200) {
+            throw Error(body.message);
+        }
+        return body;
+    }
+ 
     generateMessageObject = () => {
 
        const messageObj = {
@@ -72,6 +87,7 @@ class Chat extends Component {
         alert(`A message was submitted:  ${this.state.value}`);
         this.generateMessageObject();
         e.preventDefault();
+        this.setState({ value: "" });
     }
 
     renderList = () => {
