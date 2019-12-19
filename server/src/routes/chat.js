@@ -16,17 +16,20 @@ router.post('/addUser', async (req, res) => {
         console.log("This is the username of the user: ", username);
         const chatName = req.body.chatroom;
         console.log("This is the name of the chat: ", chatName);
+
     try {
             console.log("inside the try");
             // This is when the user name does not
             // exist in the database yet.
 
             // I want to try and write it to the database
-                const chat = new Chat({username: username, chatroom: chatName});
+                const chat = new Chat({username: username, chatRoomName: chatName});
                 const tryToSave = await chat.save();
+
                 if(tryToSave === 404) {
                     console.log("There was an error");
                 }
+                
                 res.send(chat);
         
             // Handle error
