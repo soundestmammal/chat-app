@@ -10,17 +10,21 @@ class App extends Component {
   componentDidMount() {
     // call our fetch function below once the component mounts
     this.callBackendAPI()
-    .then(res => this.setState({ data: res.age }))
+    .then(res => console.log("This is the reponse", res))
     .catch(err => console.log(err));
   }
 
   callBackendAPI = async () => {
+    console.log("Currently calling backend api!");
     const response = await fetch('/fetchUsers');
+    console.log(response);
     const body = await response.json();
+    console.log(body);
     if (response.status !== 200) {
       throw Error(body.message);
     }
-    return body;
+    console.log(body.message);
+    this.setState({ data: body.message });
   }
 
   render(){
